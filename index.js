@@ -1,17 +1,24 @@
-import express from "express"
-import dotenv from "dotenv"
+import express from "express";
+import dotenv from "dotenv";
 import { connection } from "./config/database.js";
+import register from "./routes/user.js";
 
-const app = express()
+import recipe from "./routes/recipe.js";
+import cors from "cors";
+
+const app = express();
 dotenv.config();
-const PORT = process.env.PORT|| 4000;
+const PORT = process.env.PORT || 4000;
 
-app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: "http://localhost:3000" })); 
+app.use(express.json());
+
+app.use("/api/v1", register);
+app.use(recipe);
 
 
-
-
-
-connection.then(() =>app.listen(PORT, () => {
+  app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-  }) );
+  })
+
