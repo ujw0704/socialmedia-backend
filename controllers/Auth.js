@@ -12,7 +12,9 @@ export const login =("/login",(req, res) => {
   res.send("Login successful")
 })
 
-// export const signup = (req, res) => {
+export const signup =("/signup",(req, res) => {
   
-  
-// };
+  console.log(req.body)
+
+  res.send("sign up sucessful")
+});

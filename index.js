@@ -18,11 +18,7 @@ app.use(express.json());
 app.use( register);
 app.use(login)
 app.use(recipe);
-// app.post("/login",(req, res) => {
-//   console.log(req.body)
-  
-//   }
-// )
+
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   })
