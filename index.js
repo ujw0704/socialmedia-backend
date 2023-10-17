@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import register from "./routes/user.js";
 import login from "./routes/user.js"
 import adminlogin  from "./routes/user.js";
-import adimregister from "./routes/user.js"
+// import adminregister from "./routes/user.js"
 
 import recipe from "./routes/recipe.js";
 import cors from "cors";
