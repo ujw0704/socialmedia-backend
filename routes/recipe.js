@@ -1,52 +1,48 @@
 import express from "express"
-import  multer from "multer"
-
+import multer from "multer"
+import path from "path"
 
 
 const recipe = express.Router()
 
-/****************************sending files through multer****************************************/ 
+/****************************sending files through multer****************************************/
 const storage = multer.diskStorage({
      destination: "uploads",
-     filename(req, file, cb){
-          const ext =path.extname(file.originalname)
-          cb(null, this.filename)
-     }
+     filename: function (req, file, callback) {
+          const ext = path.extname(file.originalname)
+          const filename = file.originalname + ext;
+          callback(null, filename);
+     },
 })
-const upload = multer({storage:storage})
+const upload = multer({ storage: storage })
 
 
 
-recipe.post("/add", upload.single("image"),(req,res)=>{
-     // const { name, price, category, company } = req.body;
-     console.log("Form data:", req.body)
-     try{
+recipe.post("/add", upload.single("file"), (req, res) => {
+     const { name, price, category, company } = req.body;
+     
+     try {
           const image = req.file;
-          
-          if(!req.file){
-               
+
+          if (!req.file) {
+
                console.log("Form data:", req.files)
                console.log("  no File received:");
                return res.status(400).send("No file uploaded.");
           }
-           console.log("File recived :req.files")
-               res.send('uploaded')
-          
+          // console.log("File recived :req.files")
+          res.send('uploaded')
      }
-     catch (error){
-          
+     catch (error) {
           console.error("Error:", error);
-         
-          
-               
      }
-     })
-     /************************************sending data in node********************************************************/ 
+})
+/************************************sending data in node********************************************************/
 
-recipe.post("/recipe",(req,res)=>{
+recipe.post("/recipe", (req, res) => {
      console.log("hello")
 
-console.log (req.body)
+     console.log(req.body)
 
 })
 
